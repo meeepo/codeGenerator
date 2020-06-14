@@ -1,0 +1,14 @@
+{
+  "outputPath": "output",
+  "tasks": [
+    {
+      "datas": [
+        "demo/simpleReplace.cg#data1.p"
+      ],
+      "templates": [
+        "demo/simpleReplace.cg#temp1.t"
+      ],
+      "output": "simpleReplace.result"
+    }
+  ]
+}

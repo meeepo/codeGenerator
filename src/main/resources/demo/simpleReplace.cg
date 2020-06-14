@@ -1,0 +1,10 @@
+数据(json,p,xml)
+<<<<<data1.p
+aas=hello from aas
+>>>>>data1.property
+
+模版(t)
+<<<<<temp1.t
+hello code generator
+value=#{aas}
+>>>>>temp1.t
