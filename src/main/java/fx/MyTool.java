@@ -38,6 +38,7 @@ public class MyTool extends Application {
 
         borderPane.setCenter(tabPane);
 
+
         TreeItem<String> rootItem = new TreeItem<>("tools");
         rootItem.setExpanded(true);
         rootItem.getChildren().add(new TreeItem<>(CleanQuote.funName()));
@@ -45,6 +46,8 @@ public class MyTool extends Application {
         rootItem.getChildren().add(new TreeItem<>(MvnGe.funName()));
         rootItem.getChildren().add(new TreeItem<>(HtmlEditor.funName()));
         rootItem.getChildren().add(new TreeItem<>(WebTimeStamp.funName()));
+        rootItem.getChildren().add(new TreeItem<>(RegFilter.funName()));
+        rootItem.getChildren().add(new TreeItem<>(Diff.funName()));
 
         TreeView<String> tree = new TreeView<>(rootItem);
         tree.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
@@ -68,9 +71,14 @@ public class MyTool extends Application {
             if (name.equals(WebTimeStamp.funName())) {
                 WebTimeStamp.newTab(tabPane);
             }
+            if (name.equals(RegFilter.funName())) {
+                RegFilter.newTab(tabPane);
+            }
+            if (name.equals(Diff.funName())) {
+                Diff.newTab(tabPane);
+            }
 
         });
-
 
 
         borderPane.setLeft(tree);
