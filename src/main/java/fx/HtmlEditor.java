@@ -1,5 +1,8 @@
 package fx;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
@@ -11,6 +14,8 @@ import javafx.scene.web.HTMLEditor;
  * Created on 2020-07-04
  */
 public class HtmlEditor {
+    private static Logger logger = LoggerFactory.getLogger(TimeStampTrans.class);
+
     public static String funName(){
         return "HtmlEditor";
     }

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -17,6 +18,17 @@ public class JsonUtil {
     private static ObjectMapper mapper = new ObjectMapper()
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
+    public static JsonNode parseJsonTree(String jsonStr){
+        try {
+            return  mapper.readTree(jsonStr);
+        } catch (JsonProcessingException e) {
+            try {
+                return  mapper.readTree(EMPTY_JSON);
+            } catch (JsonProcessingException jsonProcessingException) {
+                return null;
+            }
+        }
+    }
     public static String toJson(Object obj) {
         try {
             if (obj == null) {

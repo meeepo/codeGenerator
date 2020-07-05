@@ -48,6 +48,7 @@ public class MyTool extends Application {
         rootItem.getChildren().add(new TreeItem<>(WebTimeStamp.funName()));
         rootItem.getChildren().add(new TreeItem<>(RegFilter.funName()));
         rootItem.getChildren().add(new TreeItem<>(Diff.funName()));
+        rootItem.getChildren().add(new TreeItem<>(SimpleFm.funName()));
 
         TreeView<String> tree = new TreeView<>(rootItem);
         tree.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
@@ -76,6 +77,9 @@ public class MyTool extends Application {
             }
             if (name.equals(Diff.funName())) {
                 Diff.newTab(tabPane);
+            }
+            if (name.equals(SimpleFm.funName())) {
+                SimpleFm.newTab(tabPane);
             }
 
         });
