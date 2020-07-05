@@ -27,7 +27,7 @@ public class PropUtil {
         return properties;
     }
 
-    public Properties loadPropByString(String propertiesString) {
+    public static Properties loadPropByString(String propertiesString) {
         Properties properties = new Properties();
         try {
             properties.load(new ByteArrayInputStream(propertiesString.getBytes()));
