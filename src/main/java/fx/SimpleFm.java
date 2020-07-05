@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import freemarker.cache.StringTemplateLoader;
+import freemarker.ext.beans.BeansWrapper;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
@@ -39,9 +40,11 @@ public class SimpleFm {
         TextArea ftl = new TextArea("<#assign json=jsonStr?eval />\n"
                 + "json.name=${json.name}\n"
                 + "<#list json.ids as id>\n"
-                + "${id}\n"
-                + "</#list>");
-        TextArea json = new TextArea("{\"name\":\"aas\",\"ids\":[1,2,3]}");
+                + "<#assign className=statics[\"core.util.NameUtil\"].toClassName('${id}') />\n"
+                + ".addValue(\"${id}\",bb.get${className}());\n"
+                + "</#list>\n"
+                + " ${statics[\"java.lang.System\"].currentTimeMillis()}");
+        TextArea json = new TextArea("{\"name\":\"aas\",\"ids\":[\"myAge\",\"myNum\"]}");
         TextArea res = new TextArea();
         Button btn = new Button("free maker");
         vb.getChildren().addAll(ftl, json, btn, res);
@@ -65,8 +68,11 @@ public class SimpleFm {
         stringLoader.putTemplate("myFtl", ftl);
         cfg.setTemplateLoader(stringLoader);
 
+
         Map<String, Object> root = new HashMap<>();
         root.put("jsonStr", json);
+        root.put("statics", BeansWrapper.getDefaultInstance().getStaticModels());
+
         Template temp = cfg.getTemplate("myFtl");
         StringWriter writer = new StringWriter();
         temp.process(root, writer);

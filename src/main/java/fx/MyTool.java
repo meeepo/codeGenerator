@@ -51,6 +51,7 @@ public class MyTool extends Application {
         rootItem.getChildren().add(new TreeItem<>(SimpleFm.funName()));
         rootItem.getChildren().add(new TreeItem<>(FreeMakerProj.funName()));
         rootItem.getChildren().add(new TreeItem<>(MakeName.funName()));
+        rootItem.getChildren().add(new TreeItem<>(GetAndSet.funName()));
 
         TreeView<String> tree = new TreeView<>(rootItem);
         tree.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
@@ -88,6 +89,9 @@ public class MyTool extends Application {
             }
             if (name.equals(MakeName.funName())) {
                 MakeName.newTab(tabPane);
+            }
+            if (name.equals(GetAndSet.funName())) {
+                GetAndSet.newTab(tabPane);
             }
 
         });
