@@ -128,7 +128,7 @@ public class MvnGe {
                 base+"/kuaishou-admin-component", 12));
         moduleSel.getChildren().add(new MyModuleSel("kuaishou-admin-runner",
                 base+"/kuaishou-admin-runner", 14));
-        moduleSel.getChildren().add(new MyModuleSel("kuaishou-admin-themis-sdk",
+        moduleSel.getChildren().add(new MyModuleSel("kuaishou-admin-sdk",
                 base+"/kuaishou-admin-sdk", 11));
         moduleSel.getChildren().add(new MyModuleSel("kuaishou-admin",
                 base, 10));
@@ -140,7 +140,7 @@ public class MvnGe {
                 base+"/kuaishou-audit-component", 22));
         moduleSel.getChildren().add(new MyModuleSel("kuaishou-audit-runner",
                 base+"/kuaishou-audit-runner", 24));
-        moduleSel.getChildren().add(new MyModuleSel("kuaishou-audit-themis-sdk",
+        moduleSel.getChildren().add(new MyModuleSel("kuaishou-audit-sdk",
                 base+"/kuaishou-audit-sdk", 21));
         moduleSel.getChildren().add(new MyModuleSel("kuaishou-audit",
                 base, 20));
