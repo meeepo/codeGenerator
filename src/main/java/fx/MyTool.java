@@ -1,5 +1,8 @@
 package fx;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,11 +25,63 @@ import javafx.stage.Stage;
  */
 public class MyTool extends Application {
     private static Logger logger = LoggerFactory.getLogger(FileUtil.class);
+    Map<String, Runnable> funMap = new HashMap<>();
 
     public static void main(String[] args) {
         launch(MyTool.class, args);
     }
 
+
+    public  void outerInitFunMap(Stage stage, TabPane tabPane, Map<String, Runnable>  funMap){
+        System.out.println("outerInitFunMap");
+    }
+
+    public void initFunMap(Stage stage, TabPane tabPane) {
+        outerInitFunMap(stage,tabPane,funMap);
+
+        funMap.put(CleanQuote.funName(), () -> {
+            CleanQuote.newTab(tabPane);
+        });
+        funMap.put(TimeStampTrans.funName(), () -> {
+            TimeStampTrans.newTab(tabPane);
+        });
+        funMap.put(MvnGe.funName(), () -> {
+            MvnGe.newTab(tabPane);
+        });
+        funMap.put(HtmlEditor.funName(), () -> {
+            HtmlEditor.newTab(tabPane);
+        });
+        funMap.put(WebTimeStamp.funName(), () -> {
+            WebTimeStamp.newTab(tabPane);
+        });
+        funMap.put(RegFilter.funName(), () -> {
+            RegFilter.newTab(tabPane);
+        });
+        funMap.put(Diff.funName(), () -> {
+            Diff.newTab(tabPane);
+        });
+        funMap.put(SimpleFm.funName(), () -> {
+            SimpleFm.newTab(tabPane);
+        });
+        funMap.put(FreeMakerProj.funName(), () -> {
+            FreeMakerProj.newTab(tabPane, stage);
+        });
+        funMap.put(MakeName.funName(), () -> {
+            MakeName.newTab(tabPane);
+        });
+        funMap.put(GetAndSet.funName(), () -> {
+            GetAndSet.newTab(tabPane);
+        });
+        funMap.put(HttpTester.funName(), () -> {
+            HttpTester.newTab(tabPane);
+        });
+
+
+    }
+
+    public Map<String, Runnable> getFunMap() {
+        return funMap;
+    }
 
     @Override
     public void start(Stage stage) {
@@ -37,62 +92,29 @@ public class MyTool extends Application {
 
 
         borderPane.setCenter(tabPane);
+        initFunMap(stage, tabPane);
 
 
         TreeItem<String> rootItem = new TreeItem<>("tools");
         rootItem.setExpanded(true);
-        rootItem.getChildren().add(new TreeItem<>(CleanQuote.funName()));
-        rootItem.getChildren().add(new TreeItem<>(TimeStampTrans.funName()));
-        rootItem.getChildren().add(new TreeItem<>(MvnGe.funName()));
-        rootItem.getChildren().add(new TreeItem<>(HtmlEditor.funName()));
-        rootItem.getChildren().add(new TreeItem<>(WebTimeStamp.funName()));
-        rootItem.getChildren().add(new TreeItem<>(RegFilter.funName()));
-        rootItem.getChildren().add(new TreeItem<>(Diff.funName()));
-        rootItem.getChildren().add(new TreeItem<>(SimpleFm.funName()));
-        rootItem.getChildren().add(new TreeItem<>(FreeMakerProj.funName()));
-        rootItem.getChildren().add(new TreeItem<>(MakeName.funName()));
-        rootItem.getChildren().add(new TreeItem<>(GetAndSet.funName()));
+
+        funMap.keySet().forEach(e -> {
+            rootItem.getChildren().add(new TreeItem<>(e));
+        });
+
 
         TreeView<String> tree = new TreeView<>(rootItem);
         tree.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
-            if(tree.getSelectionModel().getSelectedItem()==null){
+            if (tree.getSelectionModel().getSelectedItem() == null) {
                 event.consume();
                 return;
             }
             String name = (String) ((TreeItem) tree.getSelectionModel().getSelectedItem()).getValue();
-            if (name.equals(CleanQuote.funName())) {
-                CleanQuote.newTab(tabPane);
+
+            if (funMap.containsKey(name)) {
+                funMap.get(name).run();
             }
-            if (name.equals(TimeStampTrans.funName())) {
-                TimeStampTrans.newTab(tabPane);
-            }
-            if (name.equals(MvnGe.funName())) {
-                MvnGe.newTab(tabPane);
-            }
-            if (name.equals(HtmlEditor.funName())) {
-                HtmlEditor.newTab(tabPane);
-            }
-            if (name.equals(WebTimeStamp.funName())) {
-                WebTimeStamp.newTab(tabPane);
-            }
-            if (name.equals(RegFilter.funName())) {
-                RegFilter.newTab(tabPane);
-            }
-            if (name.equals(Diff.funName())) {
-                Diff.newTab(tabPane);
-            }
-            if (name.equals(SimpleFm.funName())) {
-                SimpleFm.newTab(tabPane);
-            }
-            if (name.equals(FreeMakerProj.funName())) {
-                FreeMakerProj.newTab(tabPane,stage);
-            }
-            if (name.equals(MakeName.funName())) {
-                MakeName.newTab(tabPane);
-            }
-            if (name.equals(GetAndSet.funName())) {
-                GetAndSet.newTab(tabPane);
-            }
+
 
         });
 
@@ -117,7 +139,6 @@ public class MyTool extends Application {
         stage.setTitle("my tool");
         stage.show();
     }
-
 
 
 }

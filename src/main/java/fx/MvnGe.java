@@ -145,6 +145,30 @@ public class MvnGe {
         moduleSel.getChildren().add(new MyModuleSel("kuaishou-audit",
                 base, 20));
 
+        base = "/Library/aas/ws/w6-freq2/kuaishou-admin-w6f";
+        moduleSel.getChildren().add(new MyModuleSel("kuaishou-admin-api-w6f",
+                base+"/kuaishou-admin-api", 43));
+        moduleSel.getChildren().add(new MyModuleSel("kuaishou-admin-component-w6f",
+                base+"/kuaishou-admin-component", 42));
+        moduleSel.getChildren().add(new MyModuleSel("kuaishou-admin-runner-w6f",
+                base+"/kuaishou-admin-runner", 44));
+        moduleSel.getChildren().add(new MyModuleSel("kuaishou-admin-sdk-w6f",
+                base+"/kuaishou-admin-sdk", 41));
+        moduleSel.getChildren().add(new MyModuleSel("kuaishou-admin-w6f",
+                base, 40));
+
+        base = "/Library/aas/ws/w6-freq2/kuaishou-audit-themis-w6f";
+        moduleSel.getChildren().add(new MyModuleSel("kuaishou-audit-themis-api-w6f",
+                base+"/kuaishou-audit-themis-api", 53));
+        moduleSel.getChildren().add(new MyModuleSel("kuaishou-audit-themis-component-w6f",
+                base+"/kuaishou-audit-themis-component", 52));
+        moduleSel.getChildren().add(new MyModuleSel("kuaishou-audit-themis-runner-w6f",
+                base+"/kuaishou-audit-themis-runner", 54));
+        moduleSel.getChildren().add(new MyModuleSel("kuaishou-audit-themis-sdk-w6f",
+                base+"/kuaishou-audit-themis-sdk", 51));
+        moduleSel.getChildren().add(new MyModuleSel("kuaishou-audit-themis-w6f",
+                base, 50));
+
 
 
     }

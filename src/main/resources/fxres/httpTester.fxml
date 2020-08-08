@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="723.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="send" mnemonicParsing="false" prefHeight="27.0" prefWidth="66.0" text="send" />
+                  <TextField fx:id="url" prefHeight="27.0" prefWidth="592.0" text="http://www.baidu.com" />
+               </children>
+            </HBox>
+            <TextArea fx:id="cfg" prefHeight="200.0" prefWidth="200.0" text="{&quot;method&quot;:&quot;post&quot;,&quot;headers&quot;:{&quot;Content-Type&quot;:&quot;application/json&quot;,&quot;Cookie&quot;:&quot;&quot;}}" wrapText="true" />
+            <TextArea fx:id="data" prefHeight="200.0" prefWidth="200.0" wrapText="true" />
+            <TextArea fx:id="result" prefHeight="200.0" prefWidth="200.0" text="post/get&#10;对于get，会把data拼接到url&#10;{&quot;method&quot;:&quot;post&quot;,&quot;headers&quot;:{&quot;Content-Type&quot;:&quot;application/json&quot;,&quot;Cookie&quot;:&quot;&quot;}}&#10;&#10;text/plain&#10;" wrapText="true" />
+         </children>
+      </VBox>
+   </center>
+<!--   <left>-->
+<!--      <VBox fx:id="moduleSel" prefHeight="200.0" prefWidth="300.0" BorderPane.alignment="CENTER">-->
+<!--         <children>-->
+
+<!--         </children>-->
+<!--      </VBox>-->
+<!--   </left>-->
+</BorderPane>
