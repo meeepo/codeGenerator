@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import core.util.FileUtil;
+import fx.fmp.FreeMakerProj;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;

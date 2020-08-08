@@ -6,7 +6,6 @@ import java.util.Comparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fx.MvnGe.MyModuleSel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -50,35 +49,41 @@ public class MvnGe {
         }
 
     }
-    public static void dealGe(Parent root){
+
+    public static void dealGe(Parent root) {
 
         TextArea outputCmd = (TextArea) root.lookup("#outputCmd");
         CheckBox isUpdate = (CheckBox) root.lookup("#isUpdate");
+        CheckBox skipEnforce = (CheckBox) root.lookup("#skipEnforce");
         VBox moduleSel = (VBox) root.lookup("#moduleSel");
-        logger.info("isUpdate={}", isUpdate.isSelected());
+        logger.info("isUpdate={},skipEnforce={}", isUpdate.isSelected(), skipEnforce.isSelected());
 
-        StringBuilder cmd=new StringBuilder();
+        StringBuilder cmd = new StringBuilder();
         String mvn = " mvn clean install -DskipTests=true ";
         String dep = " dependency:copy-dependencies ";
         String udp = "  -U  ";
+        String skipEnforceCmd = "  -Denforcer.skip=true  ";
 
         moduleSel.getChildren().stream()
-                .map(e->(MyModuleSel) e)
+                .map(e -> (MyModuleSel) e)
                 .filter(CheckBox::isSelected)
                 .sorted(Comparator.comparingInt(MyModuleSel::getPriority))
-                .forEach(e->{
+                .forEach(e -> {
                     cmd.append("cd ").append(e.getPath()).append(" && ");
                     cmd.append(mvn);
-                    if(e.getText().contains("runner")){
+                    if (e.getText().contains("runner")) {
                         cmd.append(dep);
                     }
-                    if(isUpdate.isSelected()){
+                    if (isUpdate.isSelected()) {
                         cmd.append(udp);
+                    }
+                    if (skipEnforce.isSelected()) {
+                        cmd.append(skipEnforceCmd);
                     }
                     cmd.append(" && ");
 
                 });
-        String res=cmd.substring(0,cmd.length()-" && ".length());
+        String res = cmd.substring(0, cmd.length() - " && ".length());
         logger.info(res);
         outputCmd.setText(res);
     }
@@ -121,54 +126,53 @@ public class MvnGe {
         moduleSel.getChildren().add(new MyModuleSel("kuaishou-audit-themis",
                 "/Library/aas/ws/w4-freq/kuaishou-audit-themis", 30));
 
-         base = "/Library/aas/ws/w4-freq/kuaishou-admin";
+        base = "/Library/aas/ws/w4-freq/kuaishou-admin";
         moduleSel.getChildren().add(new MyModuleSel("kuaishou-admin-api",
-                base+"/kuaishou-admin-api", 13));
+                base + "/kuaishou-admin-api", 13));
         moduleSel.getChildren().add(new MyModuleSel("kuaishou-admin-component",
-                base+"/kuaishou-admin-component", 12));
+                base + "/kuaishou-admin-component", 12));
         moduleSel.getChildren().add(new MyModuleSel("kuaishou-admin-runner",
-                base+"/kuaishou-admin-runner", 14));
+                base + "/kuaishou-admin-runner", 14));
         moduleSel.getChildren().add(new MyModuleSel("kuaishou-admin-sdk",
-                base+"/kuaishou-admin-sdk", 11));
+                base + "/kuaishou-admin-sdk", 11));
         moduleSel.getChildren().add(new MyModuleSel("kuaishou-admin",
                 base, 10));
         base = "/Library/aas/ws/w4-freq/kuaishou-audit";
 
         moduleSel.getChildren().add(new MyModuleSel("kuaishou-audit-api",
-                base+"/kuaishou-audit-api", 23));
+                base + "/kuaishou-audit-api", 23));
         moduleSel.getChildren().add(new MyModuleSel("kuaishou-audit-component",
-                base+"/kuaishou-audit-component", 22));
+                base + "/kuaishou-audit-component", 22));
         moduleSel.getChildren().add(new MyModuleSel("kuaishou-audit-runner",
-                base+"/kuaishou-audit-runner", 24));
+                base + "/kuaishou-audit-runner", 24));
         moduleSel.getChildren().add(new MyModuleSel("kuaishou-audit-sdk",
-                base+"/kuaishou-audit-sdk", 21));
+                base + "/kuaishou-audit-sdk", 21));
         moduleSel.getChildren().add(new MyModuleSel("kuaishou-audit",
                 base, 20));
 
         base = "/Library/aas/ws/w6-freq2/kuaishou-admin-w6f";
         moduleSel.getChildren().add(new MyModuleSel("kuaishou-admin-api-w6f",
-                base+"/kuaishou-admin-api", 43));
+                base + "/kuaishou-admin-api", 43));
         moduleSel.getChildren().add(new MyModuleSel("kuaishou-admin-component-w6f",
-                base+"/kuaishou-admin-component", 42));
+                base + "/kuaishou-admin-component", 42));
         moduleSel.getChildren().add(new MyModuleSel("kuaishou-admin-runner-w6f",
-                base+"/kuaishou-admin-runner", 44));
+                base + "/kuaishou-admin-runner", 44));
         moduleSel.getChildren().add(new MyModuleSel("kuaishou-admin-sdk-w6f",
-                base+"/kuaishou-admin-sdk", 41));
+                base + "/kuaishou-admin-sdk", 41));
         moduleSel.getChildren().add(new MyModuleSel("kuaishou-admin-w6f",
                 base, 40));
 
         base = "/Library/aas/ws/w6-freq2/kuaishou-audit-themis-w6f";
         moduleSel.getChildren().add(new MyModuleSel("kuaishou-audit-themis-api-w6f",
-                base+"/kuaishou-audit-themis-api", 53));
+                base + "/kuaishou-audit-themis-api", 53));
         moduleSel.getChildren().add(new MyModuleSel("kuaishou-audit-themis-component-w6f",
-                base+"/kuaishou-audit-themis-component", 52));
+                base + "/kuaishou-audit-themis-component", 52));
         moduleSel.getChildren().add(new MyModuleSel("kuaishou-audit-themis-runner-w6f",
-                base+"/kuaishou-audit-themis-runner", 54));
+                base + "/kuaishou-audit-themis-runner", 54));
         moduleSel.getChildren().add(new MyModuleSel("kuaishou-audit-themis-sdk-w6f",
-                base+"/kuaishou-audit-themis-sdk", 51));
+                base + "/kuaishou-audit-themis-sdk", 51));
         moduleSel.getChildren().add(new MyModuleSel("kuaishou-audit-themis-w6f",
                 base, 50));
-
 
 
     }

@@ -1,4 +1,4 @@
-package fx;
+package fx.fmp;
 
 import java.io.File;
 import java.io.StringWriter;
@@ -18,6 +18,7 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
 import freemarker.template.TemplateModelException;
+import fx.TimeStampTrans;
 import fx.fmp.FmConfig;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
