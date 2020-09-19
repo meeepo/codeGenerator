@@ -9,17 +9,19 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Strings;
+
 import core.util.FileUtil;
 import core.util.FileUtil.ParsedFile;
 import core.util.JsonUtil;
 import core.util.PropUtil;
 import freemarker.cache.StringTemplateLoader;
+import freemarker.ext.beans.BeansWrapper;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
 import freemarker.template.TemplateModelException;
 import fx.TimeStampTrans;
-import fx.fmp.FmConfig;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -56,7 +58,8 @@ public class FreeMakerProj {
         hb1.getChildren().add(browseButton);
         hb1.getChildren().add(doGen);
         TextField projPath = new TextField();
-        projPath.setText("/Library/aas/ws/w2-self/codeGenerator/src/main/resources/demo/FreeMakerProj");
+        projPath.setText("/Library/aas/ws/w2-self/myTool/src/main/resources/shopFrame");
+        //        projPath.setText("/Library/aas/ws/w2-self/codeGenerator/src/main/resources/demo/FreeMakerProj");
         vb.getChildren().add(projPath);
         TextArea cfg = new TextArea();
         vb.getChildren().add(cfg);
@@ -113,14 +116,14 @@ public class FreeMakerProj {
         FileUtil.parseFiles(fmConfig.getProjPath(), fmConfig.getCommonConfigs())
                 .forEach(e -> {
                     try {
-                        if (FmConfig.jsonSub.equals(e.getFileTyle())) {
+                        if (FmConfig.jsonSub.equals(e.getFileType())) {
                             cfg.setSharedVariable(e.getFileName() + "_json", e.getData());
                         }
-                        if (FmConfig.propSub.equals(e.getFileTyle())) {
+                        if (FmConfig.propSub.equals(e.getFileType())) {
                             Properties prop = PropUtil.loadPropByString(e.getData());
                             cfg.setSharedVariable(e.getFileName(), prop);
                         }
-                        if (FmConfig.textSub.equals(e.getFileTyle())) {
+                        if (FmConfig.textSub.equals(e.getFileType())) {
                             cfg.setSharedVariable(e.getFileName(), e.getData());
                         }
                     } catch (TemplateModelException templateModelException) {
@@ -133,6 +136,7 @@ public class FreeMakerProj {
         fmConfig.getFtls().forEach(ftlCfg -> {
             try {
                 Map<String, Object> root = new HashMap<>();
+                root.put("statics", BeansWrapper.getDefaultInstance().getStaticModels());
                 ParsedFile ftl = FileUtil.parseFile(fmConfig.getProjPath(), ftlCfg.getFtlPath());
                 if (ftl == null) {
                     return;
@@ -140,22 +144,25 @@ public class FreeMakerProj {
                 loader.putTemplate(ftl.getFileName(), ftl.getData());
                 FileUtil.parseFiles(fmConfig.getProjPath(), ftlCfg.getDatas())
                         .forEach(e -> {
-                            if (FmConfig.jsonSub.equals(e.getFileTyle())) {
+                            if (FmConfig.jsonSub.equals(e.getFileType())) {
                                 root.put(e.getFileName() + "_json", e.getData());
                             }
-                            if (FmConfig.propSub.equals(e.getFileTyle())) {
+                            if (FmConfig.propSub.equals(e.getFileType())) {
                                 Properties prop = PropUtil.loadPropByString(e.getData());
                                 root.put(e.getFileName(), prop);
                             }
-                            if (FmConfig.textSub.equals(e.getFileTyle())) {
+                            if (FmConfig.textSub.equals(e.getFileType())) {
                                 root.put(e.getFileName(), e.getData());
                             }
                         });
                 Template temp = cfg.getTemplate(ftl.getFileName());
                 StringWriter writer = new StringWriter();
                 temp.process(root, writer);
-                String outPutFile =
-                        FileUtil.concatPath(fmConfig.getProjPath(), FmConfig.outputFolder, ftl.getFileName());
+                String outPutFile = Strings.isNullOrEmpty(ftlCfg.getOutputPath()) ?
+                                    FileUtil.concatPath(fmConfig.getProjPath(), FmConfig.outputFolder,
+                                            ftl.getFileName())
+                                                                               : ftlCfg.getOutputPath();
+
                 FileUtil.writeFile(writer.toString(), outPutFile);
                 res.append("\n").append(writer.toString());
             } catch (Exception e) {

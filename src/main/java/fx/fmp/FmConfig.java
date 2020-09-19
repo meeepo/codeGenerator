@@ -21,6 +21,7 @@ public class FmConfig {
 
     public static class FtlCfg{
         String ftlPath = "";
+        String outputPath = "";
         List<String> datas=new ArrayList<>();
 
         public String getFtlPath() {
@@ -37,6 +38,14 @@ public class FmConfig {
 
         public void setDatas(List<String> datas) {
             this.datas = datas;
+        }
+
+        public String getOutputPath() {
+            return outputPath;
+        }
+
+        public void setOutputPath(String outputPath) {
+            this.outputPath = outputPath;
         }
     }
 

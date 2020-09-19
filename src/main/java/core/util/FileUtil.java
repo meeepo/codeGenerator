@@ -195,12 +195,12 @@ public class FileUtil {
     public static class ParsedFile {
         String data;
         String fileName;
-        String fileTyle;
+        String fileType;
 
-        public ParsedFile(String data, String fileName, String fileTyle) {
+        public ParsedFile(String data, String fileName, String fileType) {
             this.data = data;
             this.fileName = fileName;
-            this.fileTyle = fileTyle;
+            this.fileType = fileType;
         }
 
         public String getData() {
@@ -219,12 +219,12 @@ public class FileUtil {
             this.fileName = fileName;
         }
 
-        public String getFileTyle() {
-            return fileTyle;
+        public String getFileType() {
+            return fileType;
         }
 
-        public void setFileTyle(String fileTyle) {
-            this.fileTyle = fileTyle;
+        public void setFileType(String fileType) {
+            this.fileType = fileType;
         }
     }
 

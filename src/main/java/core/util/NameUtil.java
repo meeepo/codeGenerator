@@ -36,6 +36,7 @@ public class NameUtil {
 
     }
 
+    //any to underscore
     public static String toUnderScorePure(String name) {
         name = toPureWord(name);
         if (Strings.isNullOrEmpty(name)) {
@@ -47,6 +48,7 @@ public class NameUtil {
         return camelToUnderScore(name);
     }
 
+    //any to camel
     public static String toStdCamelPure(String name) {
         return toStdCamel(toPureWord(name));
     }
@@ -110,6 +112,10 @@ public class NameUtil {
         return camel.substring(0, 1).toUpperCase() + camel.substring(1);
     }
 
+    public static String camelToPackageName(String camel) {
+        return camel.toLowerCase();
+    }
+
     public static String toGetter(String camel) {
         return "get" + toClassName(camel);
     }
@@ -137,15 +143,14 @@ public class NameUtil {
     public static String toHelper(String camel) {
         return toClassName(camel) + "Helper";
     }
+
     public static String toConsumer(String camel) {
         return toClassName(camel) + "Consumer";
     }
+
     public static String toTask(String camel) {
         return toClassName(camel) + "Task";
     }
-
-
-
 
 
 }
